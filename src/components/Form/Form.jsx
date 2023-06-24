@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import "./Form.css";
 import useTelegram from "../../hooks/useTelegram";
 function Form() {
@@ -10,9 +10,9 @@ function Form() {
 
   useEffect(() => {
     if (!city && !country) {
-      tg.MainButton.show();
-    } else {
       tg.MainButton.hide();
+    } else {
+      tg.MainButton.show();
     }
   }, [tg, city, country]);
 
@@ -21,7 +21,21 @@ function Form() {
       text: "Send data",
     });
   }, [tg]);
+  const onSendData = useCallback(() => {
+    const data = {
+      city,
+      country,
+      subject,
+    };
 
+    tg.sendData(JSON.stringify(data));
+  }, [city, country, subject, tg]);
+  useEffect(() => {
+    tg.onEvent("mainButtonClicked", onSendData);
+    return () => {
+      tg.offEvent("mainButtonClicked", onSendData);
+    };
+  }, [onSendData, tg]);
   const onChangeCountry = (e) => {
     setCountry(e.target.value);
   };
