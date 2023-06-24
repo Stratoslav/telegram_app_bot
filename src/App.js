@@ -7,7 +7,7 @@ function App() {
   const { tg, onToogleButton } = useTelegram();
   useEffect(() => {
     tg.ready();
-  }, []);
+  }, [tg]);
 
   return (
     <div className="App">
