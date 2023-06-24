@@ -1,6 +1,7 @@
 import React from "react";
 import Button from "../Button/Button";
 import useTelegram from "../../hooks/useTelegram";
+import "./Header";
 // const tg = window.Telegram.WebApp;
 export default function Header() {
   const { tg, user } = useTelegram();
