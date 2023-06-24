@@ -20,7 +20,7 @@ function Form() {
     tg.MainButton.setParams({
       text: "Send data",
     });
-  }, []);
+  }, [tg]);
 
   const onChangeCountry = (e) => {
     setCountry(e.target.value);
